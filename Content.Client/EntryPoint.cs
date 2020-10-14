@@ -1,21 +1,24 @@
 using Robust.Shared.ContentPack;
-using Robust.Shared.Interfaces.Configuration;
 using Robust.Shared.Interfaces.GameObjects;
-using Robust.Shared.Interfaces.Map;
+using Robust.Client.Interfaces.State;
+using Robust.Client.Interfaces.Input;
 using Robust.Shared.IoC;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Content.Client.UI;
+using Content.Client.State;
 
 namespace Content.Client
 {
     public class EntryPoint: GameClient
     {
+        [Dependency] private readonly IStateManager _stateManager = default!;
+
         public override void Init()
         {
             var factory = IoCManager.Resolve<IComponentFactory>();
             var prototypes = IoCManager.Resolve<IPrototypeManager>();
-
+            
             factory.DoAutoRegistrations();
 
             foreach (var ignoreName in IgnoredComponents.List)
@@ -32,16 +35,18 @@ namespace Content.Client
 
             IoCManager.BuildGraph();
 
+            IoCManager.Resolve<IUIStyleManager>().Initialize();
+
             // DEVNOTE: This is generally where you'll be setting up the IoCManager further.
 
             IoCManager.InjectDependencies(this);
         }
-
         public override void PostInit()
         {
             base.PostInit();
 
             // DEVNOTE: Further setup, this is the spot you should start trying to connect to the server from.
+            _stateManager.RequestStateChange<ConnectionScreen>();
         }
 
         public override void Update(ModUpdateLevel level, FrameEventArgs frameEventArgs)

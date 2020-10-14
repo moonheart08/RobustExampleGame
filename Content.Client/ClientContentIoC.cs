@@ -1,4 +1,5 @@
 using Robust.Shared.IoC;
+using Content.Client.UI;
 
 namespace Content.Client
 {
@@ -6,6 +7,7 @@ namespace Content.Client
     {
         public static void Register()
         {
+            IoCManager.Register<IUIStyleManager, UIStyleManager>();
             // DEVNOTE: IoCManager registrations for the client go here and only here.
         }
     }
