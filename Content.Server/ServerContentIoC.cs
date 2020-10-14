@@ -6,6 +6,7 @@ namespace Content.Server
     {
         public static void Register()
         {
+            IoCManager.Register<IConnectionManager, ConnectionManager>();
             // DEVNOTE: IoCManager registrations for the server go here and only here.
         }
     }

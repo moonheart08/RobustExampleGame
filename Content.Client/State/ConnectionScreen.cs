@@ -35,6 +35,7 @@ namespace Content.Client.State
         /// <inheritdoc />
         public override void Startup()
         {
+            
             _connectionMenu = new ConnectionMenuControl(_resourceCache, _configurationManager);
             _connectionMenu.DirectConnectButton.OnPressed += DirectConnectButtonPressed;
             _client.RunLevelChanged += RunLevelChanged;
@@ -45,6 +46,7 @@ namespace Content.Client.State
         {
             _connectionMenu.Dispose();
         }
+        
 
         private void DirectConnectButtonPressed(BaseButton.ButtonEventArgs args)
         {

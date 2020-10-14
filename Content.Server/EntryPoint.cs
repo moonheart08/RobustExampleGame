@@ -1,7 +1,11 @@
 using Robust.Shared.ContentPack;
 using Robust.Shared.Interfaces.GameObjects;
 using Robust.Shared.IoC;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Robust.Server.Interfaces.Player;
+using Robust.Shared.Log;
+using Robust.Shared.Interfaces.Log;
 
 namespace Content.Server
 {
@@ -11,6 +15,7 @@ namespace Content.Server
             base.Init();
 
             var factory = IoCManager.Resolve<IComponentFactory>();
+            var prototypes = IoCManager.Resolve<IPrototypeManager>();
 
             factory.DoAutoRegistrations();
 
@@ -19,9 +24,20 @@ namespace Content.Server
                 factory.RegisterIgnore(ignoreName);
             }
 
+            foreach (var ignoreName in IgnoredPrototypes.List)
+            {
+                prototypes.RegisterIgnore(ignoreName);
+            }
+
             ServerContentIoC.Register();
 
             IoCManager.BuildGraph();
+
+            IoCManager.Resolve<IConnectionManager>().Initialize();
+            var playerManager = IoCManager.Resolve<IPlayerManager>();
+
+            var logManager = IoCManager.Resolve<ILogManager>();
+            logManager.GetSawmill("Storage").Level = LogLevel.Info;
 
             // DEVNOTE: This is generally where you'll be setting up the IoCManager further.
         }

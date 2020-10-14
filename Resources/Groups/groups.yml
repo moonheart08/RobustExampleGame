@@ -1,0 +1,16 @@
+- Index: 1
+  Name: Player
+  Commands:
+  - login
+  - joingame
+  - help
+  - list
+  - say
+  - whisper
+  - me
+  - ooc
+  - observe
+  - toggleready
+  - ghost
+  - suicide
+  - hostlogin

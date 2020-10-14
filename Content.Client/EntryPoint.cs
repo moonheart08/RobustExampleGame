@@ -1,7 +1,6 @@
 using Robust.Shared.ContentPack;
 using Robust.Shared.Interfaces.GameObjects;
 using Robust.Client.Interfaces.State;
-using Robust.Client.Interfaces.Input;
 using Robust.Shared.IoC;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
