@@ -14,6 +14,13 @@ using Content.Client.UI;
 
 namespace Content.Client.UI
 {
+    public interface IUIStyleManager
+    {
+        Stylesheet Stylesheet { get; }
+
+        void Initialize();
+    }
+    
     public class UIStyleManager: IUIStyleManager {
         [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
 
